@@ -1,15 +1,34 @@
 package com.ecom.webapp.entity;
 
 import jakarta.persistence.Embeddable;
+import jakarta.validation.constraints.NotBlank;
 
 @Embeddable
 public class Address {
+	
+	@NotBlank(message = "Door Number cannot be empty!")
 	private String doorNo;
+	
+	@NotBlank(message = "Area cannot be empty!")
 	private String area;
+	
+	@NotBlank(message = "City cannot be empty!")
 	private String city;
+	
+	@NotBlank(message = "State cannot be empty!")
 	private String state;
+	
+	@NotBlank(message = "Pincode cannot be empty")
 	private String pinCode;
-	public Address(String doorNo, String area, String city, String state, String pinCode) {
+	
+	public Address() {
+	}
+	
+	public Address(@NotBlank(message = "Door Number cannot be empty!") String doorNo,
+			@NotBlank(message = "Area cannot be empty!") String area,
+			@NotBlank(message = "City cannot be empty!") String city,
+			@NotBlank(message = "State cannot be empty!") String state,
+			@NotBlank(message = "Pincode cannot be empty") String pinCode) {
 		super();
 		this.doorNo = doorNo;
 		this.area = area;
@@ -17,6 +36,7 @@ public class Address {
 		this.state = state;
 		this.pinCode = pinCode;
 	}
+
 	public String getDoorNo() {
 		return doorNo;
 	}

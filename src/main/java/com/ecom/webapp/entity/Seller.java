@@ -1,10 +1,13 @@
 package com.ecom.webapp.entity;
 
-import com.ecom.webapp.secure.User;
+import java.util.List;
+
+import com.ecom.webapp.security.User;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -24,14 +27,34 @@ public class Seller extends User {
 	private String mailId;
 	
 	@NotBlank(message = "Phone Number cannot be empty!")
-	@Size(min = 10, max = 10, message = "Invalid Phone Number please enter a vaild phone number minimum of 10 digits")
-	@Pattern(regexp = "^\\d{10}$", message = "Invalid input:Enter numbers only")
+	@Size(min = 10, max = 10, message = "Invalid Phone Number. Please enter a vaild phone number.")
+	@Pattern(regexp = "^\\d{10}$", message = "Invalid input:Enter numbers only.")
 	@Column(unique = true)
 	private String phoneNo;
 	
 	@Embedded
 	private Address address;
 	
+	@OneToMany
+	private List<Product> products;
+	
+	public Seller() {
+	}
+	
+	public Seller(@NotBlank(message = "Name cannot be empty!") String name,
+			@NotBlank(message = "PAN Number cannot be empty!") String pan,
+			@NotBlank(message = "Email Id cannot be empty!") @Email(message = "Not a proper Email ID format! Enter again.") String mailId,
+			@NotBlank(message = "Phone Number cannot be empty!") @Size(min = 10, max = 10, message = "Invalid Phone Number. Please enter a vaild phone number.") @Pattern(regexp = "^\\d{10}$", message = "Invalid input:Enter numbers only.") String phoneNo,
+			Address address, List<Product> products) {
+		super();
+		this.name = name;
+		this.pan = pan;
+		this.mailId = mailId;
+		this.phoneNo = phoneNo;
+		this.address = address;
+		this.products = products;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -61,5 +84,11 @@ public class Seller extends User {
 	}
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+	public List<Product> getProducts() {
+		return products;
+	}
+	public void setProducts(List<Product> products) {
+		this.products = products;
 	}
 }

@@ -2,11 +2,13 @@ package com.ecom.webapp.entity;
 
 import java.util.List;
 
-import com.ecom.webapp.security.User;
+import com.ecom.webapp.secure.User;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.Email;
@@ -33,7 +35,8 @@ public class Customer extends User {
 	@Embedded
 	private Address address;
 	
-	@OneToMany
+	@OneToMany(mappedBy="customer")
+	@JsonManagedReference
 	private List<Order> orderList;
 	
 	@OneToOne

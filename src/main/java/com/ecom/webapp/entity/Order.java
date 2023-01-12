@@ -3,46 +3,57 @@ package com.ecom.webapp.entity;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.ecom.webapp.enums.Status;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "order_info")
 public class Order {
+	
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_id_seq")
+	@SequenceGenerator(name = "order_id_seq", sequenceName = "order_id_seq", initialValue = 1, allocationSize = 1)
 	private long orderId;
-	@ManyToOne(optional=false)
+	
+	@ManyToOne
 	@JoinColumn(name = "USER_ID")
-	@JsonBackReference
+	@JsonBackReference("orderlist")
 	private Customer customer;
+	
 	@OneToMany
 	@JoinColumn(name="ORDER_ID")
 	private List<Product> productList;
-	private double amount;
+	
 	private Address shippingAddress;
-	private Address orderAddress;
+	
 	@JsonFormat(pattern="yyyy-MM-dd")
 	private LocalDate orderDate;
+	
+	@Enumerated(EnumType.STRING)
 	private Status orderStatus;
 	
 	public Order() {
-		super();
 	}
 
-	public Order(long orderId, Customer customer, List<Product> productList, double amount, Address shippingAddress,
-			Address orderAddress, LocalDate orderDate, Status orderStatus) {
+	public Order(Customer customer, List<Product> productList, Address shippingAddress, LocalDate orderDate,
+			Status orderStatus) {
 		super();
-		this.orderId = orderId;
 		this.customer = customer;
 		this.productList = productList;
-		this.amount = amount;
 		this.shippingAddress = shippingAddress;
-		this.orderAddress = orderAddress;
 		this.orderDate = orderDate;
 		this.orderStatus = orderStatus;
 	}
@@ -71,28 +82,12 @@ public class Order {
 		this.productList = productList;
 	}
 
-	public double getAmount() {
-		return amount;
-	}
-
-	public void setAmount(double amount) {
-		this.amount = amount;
-	}
-
 	public Address getShippingAddress() {
 		return shippingAddress;
 	}
 
 	public void setShippingAddress(Address shippingAddress) {
 		this.shippingAddress = shippingAddress;
-	}
-
-	public Address getOrderAddress() {
-		return orderAddress;
-	}
-
-	public void setOrderAddress(Address orderAddress) {
-		this.orderAddress = orderAddress;
 	}
 
 	public LocalDate getOrderDate() {
@@ -110,8 +105,4 @@ public class Order {
 	public void setOrderStatus(Status orderStatus) {
 		this.orderStatus = orderStatus;
 	}
-	
-	
-	
-	
 }

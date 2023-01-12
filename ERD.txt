@@ -7,6 +7,7 @@ Entities
 	Email
 	Mobile
 	Address
+	List<Product>
    }
 
 2. Customer (extends User) {
@@ -15,6 +16,7 @@ Entities
 	Mobile
 	Address
 	List<Order>
+	Cart
    }
 
 3. Admin (extends User) {
@@ -43,26 +45,25 @@ Entities
 	Name
 	Weight
 	Description
+	Seller
 	Thumbnail
 	Images
 	Price
-	Category Id
+	Category
 	Stock
    }
 
 7. Category {
 	Category Id
 	Category Name
-	List<Product Id>
+	List<Product>
    }
 
 8. Order {
 	Order Id
-	Customer Id
+	Customer
 	List<Product>
-	Amount
 	Shipping Address
-	Order Address
 	Order Date
 	Status
    }

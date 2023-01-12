@@ -1,32 +1,45 @@
 package com.ecom.webapp.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-@Entity
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+
 public class Product {
-	@Id
-	@GeneratedValue
 	private long productId;
-	private String name;
+	private String productName;
 	private double weight;
 	private String description;
 	//thumbnail
 	//images
 	private double price;
-	private long categoryId;
+	@ManyToOne(optional=false)
+	@JoinColumn(name = "CATEGORY_ID")
+	@JsonBackReference
+	private Category category;
 	private boolean stock;
-	public Product(long productId, String name, double weight, String description, double price, long categoryId,
-			boolean stock) {
+	@ManyToOne(optional=false)
+	@JoinColumn(name = "USER_ID")
+	@JsonBackReference
+	private Seller seller;
+	
+	public Product() {
+		super();
+	}
+	public Product(long productId, String productName, double weight, String description, double price,
+			Category category, boolean stock, Seller seller) {
 		super();
 		this.productId = productId;
-		this.name = name;
+		this.productName = productName;
 		this.weight = weight;
 		this.description = description;
 		this.price = price;
-		this.categoryId = categoryId;
+		this.category = category;
 		this.stock = stock;
+		this.seller = seller;
 	}
 	public long getProductId() {
 		return productId;
@@ -34,11 +47,11 @@ public class Product {
 	public void setProductId(long productId) {
 		this.productId = productId;
 	}
-	public String getName() {
-		return name;
+	public String getProductName() {
+		return productName;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 	public double getWeight() {
 		return weight;
@@ -58,11 +71,18 @@ public class Product {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	public long getCategoryId() {
-		return categoryId;
+	
+	public Category getCategory() {
+		return category;
 	}
-	public void setCategoryId(long categoryId) {
-		this.categoryId = categoryId;
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+	public Seller getSeller() {
+		return seller;
+	}
+	public void setSeller(Seller seller) {
+		this.seller = seller;
 	}
 	public boolean isStock() {
 		return stock;
@@ -70,5 +90,6 @@ public class Product {
 	public void setStock(boolean stock) {
 		this.stock = stock;
 	}
+	
 	
 }

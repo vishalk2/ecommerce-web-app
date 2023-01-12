@@ -18,7 +18,7 @@ public class Address {
 	@NotBlank(message = "State cannot be empty!")
 	private String state;
 	
-	@NotBlank(message = "Pincode cannot be empty")
+	@NotBlank(message = "Pincode cannot be empty!")
 	private String pinCode;
 	
 	public Address() {
@@ -28,7 +28,7 @@ public class Address {
 			@NotBlank(message = "Area cannot be empty!") String area,
 			@NotBlank(message = "City cannot be empty!") String city,
 			@NotBlank(message = "State cannot be empty!") String state,
-			@NotBlank(message = "Pincode cannot be empty") String pinCode) {
+			@NotBlank(message = "Pincode cannot be empty!") String pinCode) {
 		super();
 		this.doorNo = doorNo;
 		this.area = area;

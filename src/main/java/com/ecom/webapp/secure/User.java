@@ -1,4 +1,4 @@
-package com.ecom.webapp.secure;
+package com.ecom.webapp.security;
 
 import com.ecom.webapp.enums.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;

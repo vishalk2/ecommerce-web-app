@@ -1,6 +1,6 @@
 package com.ecom.webapp.entity;
 
-import com.ecom.webapp.secure.User;
+import com.ecom.webapp.security.User;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,8 +22,8 @@ public class Admin extends User {
 	private String mailId;
 	
 	@NotBlank(message = "Phone Number cannot be empty!")
-	@Size(min = 10, max = 10, message = "Invalid Phone Number please enter a vaild phone number minimum of 10 digits")
-	@Pattern(regexp = "^\\d{10}$", message = "Invalid input:Enter numbers only")
+	@Size(min = 10, max = 10, message = "Invalid Phone Number. Please enter a vaild phone number.")
+	@Pattern(regexp = "^\\d{10}$", message = "Invalid input:Enter numbers only.")
 	@Column(unique = true)
 	private String phoneNo;
 	
@@ -32,7 +32,7 @@ public class Admin extends User {
 	
 	public Admin(@NotBlank(message = "Admin Name cannot be empty!") String name,
 			@NotBlank(message = "Email Id cannot be empty!") @Email(message = "Not a proper Email ID format! Enter again.") String mailId,
-			@NotBlank(message = "Phone Number cannot be empty!") @Size(min = 10, max = 10, message = "Invalid Phone Number please enter a vaild phone number minimum of 10 digits") @Pattern(regexp = "^\\d{10}$", message = "Invalid input:Enter numbers only") String phoneNo) {
+			@NotBlank(message = "Phone Number cannot be empty!") @Size(min = 10, max = 10, message = "Invalid Phone Number. Please enter a vaild phone number.") @Pattern(regexp = "^\\d{10}$", message = "Invalid input:Enter numbers only.") String phoneNo) {
 		super();
 		this.name = name;
 		this.mailId = mailId;

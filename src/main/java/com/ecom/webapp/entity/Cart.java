@@ -21,4 +21,28 @@ public class Cart {
 	@OneToMany
 	@JoinColumn(name = "PRODUCT_LIST")
 	private List<Product> productList;
+	
+	public Cart() {
+	}
+
+	public Cart(List<Product> productList) {
+		super();
+		this.productList = productList;
+	}
+
+	public long getCartId() {
+		return cartId;
+	}
+
+	public void setCartId(long cartId) {
+		this.cartId = cartId;
+	}
+
+	public List<Product> getProductList() {
+		return productList;
+	}
+
+	public void setProductList(List<Product> productList) {
+		this.productList = productList;
+	}
 }
